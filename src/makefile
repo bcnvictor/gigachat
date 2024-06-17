@@ -2,22 +2,24 @@
 CC = gcc
 CFLAGS = -Wall -Wextra
 
-SRC = main.c socketutils.c
-OBJ = main.o socketutils.o
+CLIENT_SRC = client.c socketutils.c
+SERVER_SRC = server.c socketutils.c
 
-all: main
+CLIENT_OBJ = client.o socketutils.o
+SERVER_OBJ = server.o socketutils.o
 
-main: $(OBJ)
-	$(CC) $(CFLAGS) -o main $(OBJ)
+all: client server
 
-main.o: main.c
-	$(CC) $(CFLAGS) -c main.c -o main.o
+client: $(CLIENT_OBJ)
+	$(CC) $(CFLAGS) -o client $(CLIENT_OBJ)
 
-socketutils.o: socketutils.c
-	$(CC) $(CFLAGS) -c socketutils.c -o socketutils.o
+server: $(SERVER_OBJ)
+	$(CC) $(CFLAGS) -o server $(SERVER_OBJ)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
 
 .PHONY: clean
 
 clean:
-	${RM} ${OBJ}
-	${RM} main
+	rm -f $(CLIENT_OBJ) $(SERVER_OBJ) client server
