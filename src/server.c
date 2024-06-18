@@ -1,6 +1,5 @@
 #include "socketutils.h"
 
-
 int main()
 {
   int serverSocketFD = createIPv4socket();
