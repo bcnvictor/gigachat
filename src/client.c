@@ -1,7 +1,6 @@
-#include "socketutils.h"
 #include <stdio.h>
-
-
+#include <unistd.h>
+#include "socketutils.h"
 
 int main()
 {
@@ -17,15 +16,22 @@ int main()
     printf("Connection successful\n");
 
 
-  char* msg;
-  msg = "GET / HTTP/1.1\r\nHost: www.google.com\r\nConnection: close\r\n\r\n";
-  
-  send(socketFD, msg, strlen(msg),0);
 
-  char buffer_2ko[2048];
+  char *msg = NULL;
+  size_t msgsize = 0;
+  printf("Connected ! Type 'exit' to quit.\nType a message to send...\n");
 
-  recv(socketFD,buffer_2ko,2048,0);
+  while (1) // true
+  {
+    ssize_t char_count = getline(&msg,&msgsize,stdin); 
+    if (char_count>0)
+    {
+      if (strcmp(msg,"exit\n")==0)
+        break;
+      ssize_t sent_amount = send(socketFD, msg, char_count,0);
+    }
+  }
 
-  printf("SERVER RESPONSE :\n%s\n",buffer_2ko);
+  close(socketFD);
   return 0;
 }

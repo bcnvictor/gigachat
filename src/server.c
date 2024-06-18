@@ -1,7 +1,14 @@
+#include <unistd.h>
+#include <stdbool.h>
 #include "socketutils.h"
+
+
+
+
 
 int main()
 {
+
   int serverSocketFD = createIPv4socket();
 
   struct sockaddr_in *serverAdress = build_IPv4_socket("", 2000);
@@ -14,16 +21,13 @@ int main()
   if (listen_result == 0)
     printf("Listening to port 2000...\n");
 
-  struct sockaddr_in clientAddress;
-  unsigned int clientAddrSize = sizeof (struct sockaddr_in);
 
-  int clientSocketFD = accept(serverSocketFD,(struct sockaddr *)&clientAddress,&clientAddrSize);
+  struct AcceptedSocket* clientSocket = acceptIncomingConnection(serverSocketFD);
 
-  char buffer_2Kb[2048];
-  recv(clientSocketFD,buffer_2Kb,2048,0);
+  receive_print_incomming_data(clientSocket->acceptedSocketFD);
 
-  printf("SERVER RESPONSE :\n%s\n",buffer_2Kb);
-
+  close(clientSocket->acceptedSocketFD);
+  shutdown(serverSocketFD,SHUT_RDWR);
   return 0;
 }
 
