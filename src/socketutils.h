@@ -8,6 +8,8 @@
 #include <malloc.h>
 #include <string.h>
 #include <stdbool.h>
+#include <unistd.h>
+#include <pthread.h>
 
 struct AcceptedSocket
 {
@@ -19,7 +21,6 @@ struct AcceptedSocket
 
 struct sockaddr_in* build_IPv4_socket(char *ip,int port);
 int createIPv4socket();
-void receive_print_incomming_data(int socketFD);
 struct AcceptedSocket * acceptIncomingConnection(int socketFD);
 
 #endif // SOCKETUTIL_SOCKETUTIL_H

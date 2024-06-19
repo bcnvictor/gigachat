@@ -43,21 +43,4 @@ struct AcceptedSocket *acceptIncomingConnection(int socketFD)
   return acceptedSocket;
 }
 
-void receive_print_incomming_data(int socketFD)
-{
-  char buffer_1Kb[1024];
-  
-  while(1) 
-  {
-    ssize_t amount_received = recv(socketFD,buffer_1Kb,1024,0);
-    if (amount_received > 0)
-    {
-      buffer_1Kb[amount_received] = 0;
-      printf("Response was :\n%s\n ",buffer_1Kb);
-    }
 
-    if (amount_received <= 0)
-      break;
-  }
-
-}

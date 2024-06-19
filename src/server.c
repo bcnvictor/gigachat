@@ -1,9 +1,5 @@
-#include <unistd.h>
-#include <stdbool.h>
 #include "socketutils.h"
-
-
-
+#include "serverutils.h"
 
 
 int main()
@@ -21,12 +17,9 @@ int main()
   if (listen_result == 0)
     printf("Listening to port 2000...\n");
 
+  
+  start_accepting_connections(serverSocketFD);
 
-  struct AcceptedSocket* clientSocket = acceptIncomingConnection(serverSocketFD);
-
-  receive_print_incomming_data(clientSocket->acceptedSocketFD);
-
-  close(clientSocket->acceptedSocketFD);
   shutdown(serverSocketFD,SHUT_RDWR);
   return 0;
 }

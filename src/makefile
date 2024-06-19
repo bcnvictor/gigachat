@@ -3,10 +3,10 @@ CC = gcc
 CFLAGS = -Wall -Wextra
 
 CLIENT_SRC = client.c socketutils.c
-SERVER_SRC = server.c socketutils.c
+SERVER_SRC = server.c socketutils.c serverutils.c
 
 CLIENT_OBJ = client.o socketutils.o
-SERVER_OBJ = server.o socketutils.o
+SERVER_OBJ = server.o socketutils.o serverutils.o
 
 all: client server
 
