@@ -1,6 +1,6 @@
 # Makefile
 CC = gcc
-CFLAGS = -Wall -Wextra
+CFLAGS = -Wall -Wextra -I../header
 
 CLIENT_SRC = client.c socketutils.c
 SERVER_SRC = server.c socketutils.c serverutils.c
